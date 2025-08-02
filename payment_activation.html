@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activación de Pago QR - Frenos Automotriz LVS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .qr-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .qr-code {
+            max-width: 300px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        .payment-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .activate-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .activate-btn:hover {
+            background-color: #218838;
+        }
+        .status {
+            text-align: center;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        .status.active {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Frenos Automotriz LVS</h1>
+            <h2>Activación de Pago QR</h2>
+        </div>
+        
+        <div class="payment-info">
+            <h3>Información del Pago</h3>
+            <div class="info-row">
+                <span>Cliente:</span>
+                <span>Leonard Villacorta saavedra</span>
+            </div>
+            <div class="info-row">
+                <span>Producto:</span>
+                <span>Líquido de freno Negro</span>
+            </div>
+            <div class="info-row">
+                <span>Cantidad:</span>
+                <span>1</span>
+            </div>
+            <div class="info-row">
+                <span>Precio Unitario:</span>
+                <span>S/. 20.00</span>
+            </div>
+            <div class="info-row total">
+                <span>Total a Pagar:</span>
+                <span>S/. 20.00</span>
+            </div>
+        </div>
+
+        <div class="payment-info">
+            <h3>Información del Comercio</h3>
+            <div class="info-row">
+                <span>Comercio:</span>
+                <span>YAPERO</span>
+            </div>
+            <div class="info-row">
+                <span>Ciudad:</span>
+                <span>Lima</span>
+            </div>
+            <div class="info-row">
+                <span>País:</span>
+                <span>PE</span>
+            </div>
+        </div>
+
+        <div class="qr-container">
+            <h3>Código QR para Pago</h3>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcIAAAHCAQAAAABUY/ToAAADdElEQVR4nO2cyY3bQBBFf5kEdCQBBzChkBk4JMMhOQMyFAcwQPMogI3vQ/UmjsYHWwNp5F8HittDt4BCrd004u9k/fKXICBSpEiRIkWKFPl4pCXpgXUEAEQzG9M7/gBbfmu+yZgin4ycSJIBsBnRbEZHLogGbGYkz+keSV6S95ityIci4WoxBQBT6MgFABk6YgodgYF+5veAjq5wy+f6nyI/juwP14bhtQeGHVxfdnD9FnuuL2fD9PNWY4p8LvKoQ8R2oqUz80ukw63GFPlcZPZlHg8lD5YcGnc/YOKePF19Wb5M5CW5mrWJ2PfQ0ebt5IdkhxA9Lbv/bEU+FOm+rDY8COzA+rKD2KJ5KAREA4bLtsjn+p8iP45Ek65PAYBnXgHwwHpBx3RWDpQvE9lK0gh05DLQk/mc73c8ZPnSIZFXJGnEwBRJL0MKoslQNQwAoJha5FWpvqxWG8mAXHJ0lcoPlkE6JPIobCQrTWubBrah9BRUpxZ5lMYOJYfWZbMUikUqWqZ4SOR7pEfNm5mHQkWRvI2/jjF19YGONt97tiIfisz1oQ2wibE3oNsNw6u5Ek3+E4FpiX6P95utyEck0fioBTWZz66N3AEMO5AKR4qHRB7lEA81bTGghNh+TzVGkVelyegXoGmyekzd5mXJBMkOibyUpk7t6hPyGjSgOLQANKVs6ZDIC2kq0am5UZZ9VEUqaZriIZFvpcY+STdQTdB+UYFUfUjkdcnxUNeEPTlDa+Oh1DSTLxP5HjmcjWXhos3D2bCOuZ5Y1zEutxxT5HOQjbdCMUE5wd+b6lHd+iE7JPJSmvqQS7Nses9KE7rSglU8JPIoTTxUrE9tmlXN8ZcX7S8TeZS8N2g4G9LaaYDYxnR/CoBNAQS2r7thCP8+psjnJLcTyV+nZIeQFzO6eN9+jIbpV38k7zFbkY9EHitA3s1AXonvy/HLIqJ0KV8m8g15+O4HF0Tjsp1SmraOHYGt9xDb5jvPVuRjkcd9rnkzUM3V9iajV41R5BXJeRmaPD41XovSIOdl9YF0SGSRow61+8tQVoGk1kd9Kh0S+Qcyms2Ixh9jcm02IxrWFzJ/5urmY4r8xGSpDxHp6zBb7/Uhm8JoXL8FAMPe2xRiD9WHRL6V2utAyehrlyzvOWPTy1dMLfJCTN84FylSpEiRIkX+5+RvggPJAB+uTPoAAAAASUVORK5CYII=" alt="Código QR de Pago" class="qr-code">
+        </div>
+
+        <div id="status" class="status pending">
+            Estado: Pendiente de Activación
+        </div>
+
+        <button class="activate-btn" onclick="activatePayment()">
+            Activar Pago Automático
+        </button>
+    </div>
+
+    <script>
+        function activatePayment() {
+            const statusDiv = document.getElementById('status');
+            const button = document.querySelector('.activate-btn');
+            
+            // Simular activación del pago
+            button.textContent = 'Activando...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                statusDiv.textContent = 'Estado: Pago Activado - Listo para Escanear';
+                statusDiv.className = 'status active';
+                button.textContent = 'Pago Activado ✓';
+                button.style.backgroundColor = '#28a745';
+                
+                // Aquí se podría integrar con la API de YAPERO o el sistema de pagos
+                console.log('Pago QR activado para:', {
+                    merchant: 'YAPERO',
+                    amount: 20.0,
+                    currency: 'PEN',
+                    qr_payload: '0002010102113932d44fed49ac0957e3996b7f2740ca10865204561153036045802PE5906YAPERO6004Lima6304C0F9'
+                });
+                
+                // Opcional: redirigir a la aplicación de pagos o mostrar instrucciones
+                alert('¡Pago QR activado exitosamente!\n\nAhora puedes escanear el código QR con tu aplicación de pagos móvil.');
+                
+            }, 2000);
+        }
+
+        // Auto-activar después de 3 segundos (opcional)
+        // setTimeout(activatePayment, 3000);
+    </script>
+</body>
+</html>
+        
